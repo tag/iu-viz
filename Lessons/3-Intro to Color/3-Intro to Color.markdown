@@ -2,17 +2,21 @@
 
     - [ ] Review the included presentation (Color.pptx)
     
+    - [ ] [Color matters](https://usabilitygeek.com/colour-user-experience-psychology/), and evokes emotions
+    
     - [ ] Describing colors ([see this tutorial and tool](http://colorizer.org))
     
       * RGB
           - Hex
           - `rgb(0–255, 0–255, 0–255)`
           - `rgba(0–255, 0–255, 0–255, 0.0–1.0)`
-      * HSB
+      
+      * HSB/HSV (not the same as HSL)
+        - [Excellent introduction to describing color with HSB](https://learnui.design/blog/the-hsb-color-system-practicioners-primer.html)
       
       * [Color keywords in CSS](https://www.w3.org/TR/SVG/types.html#ColorKeywords)
       
-      * [Excellent introduction to describing color with HSB](https://learnui.design/blog/the-hsb-color-system-practicioners-primer.html)
+      
     
     - [ ] Useful color pallettes
     
