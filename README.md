@@ -1,4 +1,4 @@
-# Introduction to Data Vizualization using Tableau and D3.js
+# Introduction to Data Visualization using Tableau and D3.js
 ##  Resources BUS-K579
 
 This repository contains sharable course materials.
