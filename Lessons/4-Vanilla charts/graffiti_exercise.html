@@ -5,6 +5,33 @@
         #myChart {
             
         }
+        .bar {
+            background-color:blue;
+            color: rgb(255,255,255);
+            margin-bottom: 4px;
+            text-align:right;
+            padding-right: 5px;
+            padding-top: 30px;
+            padding-bottom: 30px;
+            
+            position: relative;
+            left: 70px;
+        }
+        .bar-axis {
+            position:absolute;
+            left:-60px;
+            color:black;
+        }
+        #bar2015 {
+            width: 66px;
+        }
+        #bar2016 {
+            width: 47px;
+        }
+        #bar2017 {
+            width: 41px;
+            background-color:red; /* Different color! */
+        }
     </style>
 </head>
 <body>
@@ -18,6 +45,17 @@
     -->
     <!-- Build your chart here -->
     <div id="myChart">
+        <div id="bar2015" class="bar">
+            <span class="bar-axis">2015</span>
+            66
+        </div>
+        <div id="bar2016" class="bar">
+            <span class="bar-axis">2016</span>
+            47
+        </div>
+        <div id="bar2017" class="bar">
+            <span class="bar-axis">2017</span>
+            41</div>
     </div>    
 </body>
 </html>
