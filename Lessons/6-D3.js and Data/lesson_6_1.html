@@ -7,6 +7,7 @@
             width: 500px;
             border: 1px solid gray;
         }
+        /* Custom styles go here */
     </style>
     <script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
@@ -15,16 +16,7 @@
         <svg id="mySvg" />
     </div>
 </body>
-    
-<!-- I put this script after body to avoid page load order issues. The elements we're working with are guaranteed to be already loaded. -->
 <script type="text/javascript">
-d3.select("svg")
-    .append("line")
-    .attr("x1", 20)
-    .attr("y1", 20)
-    .attr("x2", 400)
-    .attr("y2", 400)
-    .style("stroke", "black")
-    .style("stroke-width", "2px");
+// Custom scripting goes here.
 </script>
 </html>

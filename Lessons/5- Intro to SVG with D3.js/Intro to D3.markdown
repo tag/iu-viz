@@ -38,49 +38,55 @@
 
 ## Drawing SVG with D3.js
 
-   - [ ] Start a new file with a [simple boilerplate](https://gist.github.com/tag/c21b2c242db7f8413120689e071c36a9). <script src="https://gist.github.com/tag/c21b2c242db7f8413120689e071c36a9.js"></script>
+  - [ ] Start a new file with a [simple boilerplate](https://gist.github.com/tag/c21b2c242db7f8413120689e071c36a9). <script src="https://gist.github.com/tag/c21b2c242db7f8413120689e071c36a9.js"></script>
    
-   - [ ] The D3.js library lets us programatically draw new items. Add a script tag to the bottom of your page, below the close of `<body>`. (See "d3-example1.html")
+  - [ ] The D3.js library lets us programatically draw new items. Add a script tag to the bottom of your page, below the close of `<body>`. (See "d3-example1.html")
    
-   ```html
-   <script type="text/javascript">
-   d3.select("svg")
-    .append("line")
-    .attr("x1", 20)
-    .attr("y1", 20)
-    .attr("x2", 400)
-    .attr("y2", 400)
-    .style("stroke", "black")
-    .style("stroke-width", "2px");
-   </script>
-   ```
-   
-   - [ ] The SVG Canvas has the origin (0,0) at the top left. Height zero is at the top, and height 500 (in this case) is at the bottom.
-   
-   - [ ] We can use D3.js to draw circles or add text. (See "d3-example2.html")
-   
-   ```javascript
-   d3.select("svg")
-    .append("circle")
-    .attr("r", 30)
-    .attr("cx", 20)
-    .attr("cy", 20)
-    .style("fill", "yellow");
+  ```html
+  <script type="text/javascript">
+  d3.select("svg")
+   .append("line")
+   .attr("x1", 20)
+   .attr("y1", 20)
+   .attr("x2", 400)
+   .attr("y2", 400)
+   .style("stroke", "black")
+   .style("stroke-width", "2px");
+  </script>
+  ```
+  
+  - [ ] The SVG Canvas has the origin (0,0) at the top left. Height zero is at the top, and height 500 (in this case) is at the bottom.
+  
+  - [ ] We can use D3.js to draw circles or add text. (See "d3-example2.html")
+  
+  ```javascript
+  d3.select("svg")
+   .append("circle")
+   .attr("r", 30)
+   .attr("cx", 20)
+   .attr("cy", 20)
+   .style("fill", "yellow");
+  d3.select("svg")
+   .append("text")
+   .attr("x", 20)
+   .attr("y", 20)
+   .attr("id", "text1")
+   .style("fill", "rgb(190, 0, 0)")
+   .text("Hello, world!");
+  ```
+  
+  - [ ] Notice that these elements were drawn in the order we declared them. (Sometimes called the "z-order".) See what happens if you change the order. Draw the line last, for example.
+  
+  - [ ] Also notice that the style for color in SVG is `fill`, not `color` like it is for HTML elements.
+  
+  - [ ] From the browser, right click on one of the circles, and pick "Inspect Element ..." Notice how the SVG code looks like HTML? They are very similar. We could indeed [hand-craft the SVG](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes) instead of writing Javascript to do it. The primary reason for drawing with Javascript instead of building the elements manually is that Javascript allows us to add a bit of interaction, which we can't accomplish with just SVG.
+  
+  - [ ] PRACTICE #1: Draw another circle in the bottom right corner (centered on `(400, 400)`). Write some text over the top of the circle. Give your circle the following attributes:
+  
+    * Radius 100
+    * Fill color a shade of light blue
 
-   d3.select("svg")
-    .append("text")
-    .attr("x", 20)
-    .attr("y", 20)
-    .attr("id", "text1")
-    .style("fill", "rgb(190, 0, 0)")
-    .text("Hello, world!");
-   ```
-   
-   - [ ] Notice that these elements were drawn in the order we declared them. (Sometimes called the "z-order".)
-   
-   - [ ] Also notice that the style for color in SVG is `fill`, not `color` like it is for HTML elements.
-   
-   - [ ] PRACTICE #1: Draw another circle in the bottom right corner (centered on `(400, 400)`). Write some text over the top of the circle. Give your circle the following attributes:
-   
-     * Radius 100
-     * Fill color a shade of light blue
+  - [ ] PRACTICE RECAP:
+  
+    * Did you get any errors?
+    * Do you have more than one element with the same id? (If you copy/pasted the text element, did you remember to change the id?)
