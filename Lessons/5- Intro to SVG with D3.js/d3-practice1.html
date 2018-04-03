@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        #mySvg {
+            height: 500px;
+            width: 500px;
+            border: 1px solid gray;
+        }
+    </style>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+    <div id="myViz">
+        <svg id="mySvg" />
+    </div>
+</body>
+    
+<!-- I put this script after body to avoid page load order issues. The elements we're working with are guaranteed to be already loaded. -->
+<script type="text/javascript">
+d3.select("svg")
+    .append("line")
+    .attr("x1", 20)
+    .attr("y1", 20)
+    .attr("x2", 400)
+    .attr("y2", 400)
+    .style("stroke", "black")
+    .style("stroke-width", "2px");
+
+d3.select("svg")
+    .append("circle")
+    .attr("r", 30)
+    .attr("cx", 20)
+    .attr("cy", 20)
+    .style("fill", "yellow");
+
+d3.select("svg")
+    .append("text")
+    .attr("x", 20)
+    .attr("y", 20)
+    .attr("id", "text1")
+    .style("fill", "rgb(190, 0, 0)") // Medium red
+    .text("Hello, world!");
+
+d3.select("svg")
+    .append("circle")
+    .attr("r", 100)
+    .attr("cx", 400)
+    .attr("cy", 400)
+    .style("fill", "rgb(169, 211, 255)");
+
+d3.select("svg")
+    .append("text")
+    .attr("x", 400)
+    .attr("y", 400)
+    .attr("id", "text1")
+    .text("Um, hello?!");
+</script>
+</html>
