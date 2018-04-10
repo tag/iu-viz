@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        #mySvg {
+            height: 500px;
+            width: 500px;
+            border: 1px solid gray;
+        }
+        
+        text {
+            font-size: 10px;
+            text-anchor: middle;
+            fill: #4f442b;
+        }
+        circle {
+            fill: #75739f;
+            stroke: black;
+            stroke-width: 1px;
+        }
+
+        circle.active {
+            fill: #fe9922;
+        }
+        circle.inactive {
+            fill: #c4b9ac;
+        }
+        
+    </style>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+    <div id="myViz">
+        <svg id="mySvg" />
+        <div id="controls"></div>
+    </div>
+</body>
+<script type="text/javascript">
+/**
+ * This code from Manning, "D3.js in Action", Chapter 3
+ * with some simplification and updates for D3 v5.0
+ *
+ *
+ */
+    
+d3.csv('worldcup.csv', function(d) {  // Call this anonymous function for each element
+    d.win = parseInt(d.win);          // Use the function to convert items from string (the default) to their correct type
+    d.loss = parseInt(d.loss);
+    d.draw = parseInt(d.draw);
+    return d;
+})
+.then(function(data) {
+    console.log(data);  // Check the console to make sure it's printing!
+      
+    d3.select('svg')
+      .append('g')
+      .attr('id', 'overallGroup')
+      .attr('transform','translate(50,300)')
+      .selectAll('g')
+      .data(data)
+      .enter()
+      .append('g')
+      .attr('class', 'teamGroup')
+      .attr('transform', (d,i) => 'translate('+ (i*50) +',0)')
+      ;
+      
+    d3.selectAll('g.teamGroup')
+      .append('circle')
+      .attr('r', 20)
+    ;
+      
+    d3.selectAll('g.teamGroup')
+      .append('text')
+      .attr('y', 30)
+      .text(d => d.team)
+    ;
+    
+    /**
+     * Create buttons for win, loss, and draw
+     **/
+    const buttonNames = ['win', 'loss', 'draw']; // items match column names; There is a more dynamic way to do this, seen in a later file
+    
+    d3.select('#controls').selectAll('button')  // Note that we added a div with id="controls" in the HTML above
+        .data(buttonNames)
+        .enter()
+        .append('button')
+        .html(d=>d) // Specified the label inside the button
+        .on('click', buttonClick)
+    ;
+
+    /**
+     * Define the behavior of the win, loss, and draw buttons
+     */
+    function buttonClick(theButton) {
+        console.log("Clicking button " + theButton);
+        
+        var maxValue = d3.max(data, d=>d[theButton]);
+
+        var radiusScale = d3.scaleLinear()
+            .domain([0, maxValue])
+            .range([2, 20]);
+
+        d3.selectAll('g.teamGroup').select('circle')
+            .attr('r', d=>radiusScale(d[theButton]))
+    }
+    
+    /**
+     * Define mouseover behavior using classes
+     */
+    d3.selectAll('g.teamGroup')
+        .on('mouseover', highlightRegion);
+    
+    /** 
+     *  Do this onhover: If the hovered circle's region matches a data element's region, set class to 'active, else 'inactive'
+     */
+    function highlightRegion(theDatum) {
+        d3.selectAll('g.teamGroup').select('circle')
+            .attr('class', d => d.region === theDatum.region ? 'active' : 'inactive'); 
+    }
+    
+    /**
+     * Define mouseout behavior
+     */
+    d3.selectAll('g.teamGroup')
+        .on('mouseout', function() {
+            d3.selectAll('g.teamGroup').select('circle')
+                .classed('inactive', false)
+                .classed('active', false); 
+        });
+});
+</script>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        #mySvg {
+            height: 500px;
+            width: 500px;
+            border: 1px solid gray;
+        }
+        
+        text {
+            font-size: 10px;
+            text-anchor: middle;
+            fill: #4f442b;
+        }
+        circle {
+            stroke: black;
+            stroke-width: 1px;
+        }
+
+        circle.active {
+            /* Removed the styles! */
+        }
+        
+        circle.inactive {
+            opacity: .5;
+            fill: #c4b9ac;
+        }
+        
+    </style>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+    <div id="myViz">
+        <svg id="mySvg" />
+        <div id="controls"></div>
+    </div>
+</body>
+<script type="text/javascript">
+/**
+ * This code from Manning, "D3.js in Action", Chapter 3
+ * with some simplification and updates for D3 v5.0
+ *
+ *
+ */
+    
+d3.csv('worldcup.csv', function(d) {  // Call this anonymous function for each element
+    d.win = parseInt(d.win);          // Use the function to convert items from string (the default) to their correct type
+    d.loss = parseInt(d.loss);
+    d.draw = parseInt(d.draw);
+    return d;
+})
+.then(function(data) {
+    console.log(data);  // Check the console to make sure it's printing!
+      
+    d3.select('svg')
+      .append('g')
+      .attr('id', 'overallGroup')
+      .attr('transform','translate(50,300)')
+      .selectAll('g')
+      .data(data)
+      .enter()
+      .append('g')
+      .attr('class', 'teamGroup')
+      .attr('transform', (d,i) => 'translate('+ (i*50) +',0)')
+      ;
+    
+    // More info of schemes at https://github.com/d3/d3-scale-chromatic/blob/master/README.md#categorical
+    var teamColors = d3.scaleOrdinal()
+        .domain(['UEFA', 'CONMEBOL', 'CONCACAF', 'AFC'])
+        .range(d3.schemeSpectral[4]) // Four regions in our data set 
+        .unknown('#c4b9ac')  // Try leaving one out of the domain, and it should get this color
+        ; 
+    console.log(teamColors);
+    
+    d3.selectAll('g.teamGroup')
+      .append('circle')
+      .attr('r', 20)
+      .attr('fill', d=> teamColors(d.region))
+    ;
+      
+    d3.selectAll('g.teamGroup')
+      .append('text')
+      .attr('y', 30)
+      .text(d => d.team)
+    ;
+    
+    /**
+     * Create buttons for win, loss, and draw
+     **/
+    const buttonNames = ['win', 'loss', 'draw']; // items match column names; There is a more dynamic way to do this, seen in a later file
+    
+    d3.select('#controls').selectAll('button')  // Note that we added a div with id="controls" in the HTML above
+        .data(buttonNames)
+        .enter()
+        .append('button')
+        .html(d=>d) // Specified the label inside the button
+        .on('click', buttonClick)
+    ;
+
+    /**
+     * Define the behavior of the win, loss, and draw buttons
+     */
+    function buttonClick(theButton) {
+        console.log("Clicking button " + theButton);
+        
+        var maxValue = d3.max(data, d=>d[theButton]);
+
+        var radiusScale = d3.scaleLinear()
+            .domain([0, maxValue])
+            .range([2, 20]);
+
+        d3.selectAll('g.teamGroup').select('circle')
+            .transition()
+            .duration(1000) // Duration in milliseconds
+            .attr('r', d=>radiusScale(d[theButton]))
+    }
+    
+    /**
+     * Define mouseover behavior using classes
+     */
+    d3.selectAll('g.teamGroup')
+        .on('mouseover', highlightRegion);
+    
+    /** 
+     *  Do this onhover: If the hovered circle's region matches a data element's region, set class to 'active, else 'inactive'
+     */
+    function highlightRegion(theDatum) {
+        d3.selectAll('g.teamGroup').select('circle')
+            .attr('class', d => d.region === theDatum.region ? 'active' : 'inactive'); 
+    }
+    
+    /**
+     * Define mouseout behavior
+     */
+    d3.selectAll('g.teamGroup')
+        .on('mouseout', function() {
+            d3.selectAll('g.teamGroup').select('circle')
+                .classed('inactive', false)
+                .classed('active', false); 
+        });
+});
+</script>
+</html> <!-- TODO: colors by region; darker selected/light unselected; opacity -->

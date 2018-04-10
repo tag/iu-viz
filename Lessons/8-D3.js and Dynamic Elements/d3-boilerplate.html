@@ -7,6 +7,7 @@
             width: 500px;
             border: 1px solid gray;
         }
+        /* Custom styles go here */
     </style>
     <script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
@@ -16,6 +17,16 @@
     </div>
 </body>
 <script type="text/javascript">
-    // Your D3 visualization script goes here.
+// Load data
+d3.csv( _file_name_ )
+    .then(function(data){
+      // TODO: Create visualization
+      d3.select('svg')
+        // ...
+        .data(data)
+        .enter()
+        // ...
+        ;
+    });
 </script>
 </html>

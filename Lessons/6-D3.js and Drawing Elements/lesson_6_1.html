@@ -17,6 +17,20 @@
     </div>
 </body>
 <script type="text/javascript">
-// Custom scripting goes here.
+var data = [12, 48, 6, 105, 10];
+
+var yScale = d3.scaleLinear().domain([0,d3.max(data)]).range([0,100]);
+
+d3.select('svg')
+  .selectAll('rect')
+  .data( data )
+  .enter()
+  .append('rect')
+  .attr('x', (d,i) => i * 10 + 20)
+  .attr('y', d => 100 - yScale(d))
+  .attr('width', 10)
+  .attr('height', d => yScale(d))
+  .style('fill', 'rgb(200,180,0)')
+;
 </script>
 </html>
