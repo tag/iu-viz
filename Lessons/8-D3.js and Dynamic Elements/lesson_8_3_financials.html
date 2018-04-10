@@ -44,10 +44,11 @@
  *
  */
     
-d3.csv('worldcup.csv', function(d) {  // Call this anonymous function for each element
+d3.csv('financials.csv', function(d) {  // Call this anonymous function for each element
     d.win = parseInt(d.win);          // Use the function to convert items from string (the default) to their correct type
-    d.loss = parseInt(d.loss);
-    d.draw = parseInt(d.draw);
+    d['revenue'] = parseInt(d['revenue']);
+    d['operating profit'] = d['revenue'] - parseInt(d['cost of revenue']);
+    d['net income'] = parseInt(d['net income']);
     return d;
 })
 .then(function(data) {
@@ -67,34 +68,33 @@ d3.csv('worldcup.csv', function(d) {  // Call this anonymous function for each e
     
     // More info of schemes at https://github.com/d3/d3-scale-chromatic/blob/master/README.md#categorical
     var teamColors = d3.scaleOrdinal()
-        .domain(['UEFA', 'CONMEBOL', 'CONCACAF', 'AFC'])
-        .range(d3.schemeSpectral[4]) // Four regions in our data set 
+        .domain(['AAPL', 'MSFT', 'GOOG'])
+        .range(d3.schemeSpectral[3]) // Four regions in our data set 
         .unknown('#c4b9ac')  // Try leaving one out of the domain, and it should get this color
         ; 
-    console.log(teamColors);
     
     d3.selectAll('g.teamGroup')
       .append('circle')
       .attr('r', 20)
-      .attr('fill', d=> teamColors(d.region))
+      .attr('fill', d=> teamColors(d.company))
     ;
       
     d3.selectAll('g.teamGroup')
       .append('text')
       .attr('y', 30)
-      .text(d => d.team)
+      .text(d => d.company)
     ;
     
     /**
      * Create buttons for win, loss, and draw
      **/
-    const buttonNames = ['win', 'loss', 'draw']; // items match column names; There is a more dynamic way to do this, seen in a later file
+    const buttonNames = ['revenue', 'operating profit', 'net income']; // items match column names; There is a more dynamic way to do this, seen in a later file
     
-    d3.select('#controls').selectAll('button')
+    d3.select('#controls').selectAll('button')  // Note that we added a div with id="controls" in the HTML above
         .data(buttonNames)
         .enter()
         .append('button')
-        .html(d=>d)
+        .html(d=>d) // Specified the label inside the button
         .on('click', buttonClick)
     ;
 
@@ -107,7 +107,7 @@ d3.csv('worldcup.csv', function(d) {  // Call this anonymous function for each e
         var maxValue = d3.max(data, d=>d[theButton]);
 
         var radiusScale = d3.scaleLinear()
-            .domain([0, maxValue])
+            .domain([1, maxValue])
             .range([2, 20]);
 
         d3.selectAll('g.teamGroup').select('circle')
@@ -127,7 +127,7 @@ d3.csv('worldcup.csv', function(d) {  // Call this anonymous function for each e
      */
     function highlightRegion(theDatum) {
         d3.selectAll('g.teamGroup').select('circle')
-            .attr('class', d => d.region === theDatum.region ? 'active' : 'inactive'); 
+            .attr('class', d => d.company === theDatum.company ? 'active' : 'inactive'); 
     }
     
     /**
