@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style type="text/css">
+        #mySvg {
+            height: 500px;
+            width: 500px;
+            border: 1px solid gray;
+        }
+        
+        text {
+            font-size: 10px;
+            text-anchor: middle;
+            fill: #4f442b;
+        }
+        circle {
+            fill: #75739f;
+            stroke: black;
+            stroke-width: 1px;
+        }
+
+        
+    </style>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+    <div id="myViz">
+        <svg id="mySvg" />
+    </div>
+</body>
+<script type="text/javascript">
+/**
+ * This code from Manning, "D3.js in Action", Chapter 3
+ * with some simplification and updates for D3 v5.0
+ *
+ *
+ */
+    
+d3.csv('worldcup.csv')
+.then(function(data) {
+    console.log(data);  // Check the console to make sure it's printing!
+      
+    d3.select('svg')
+      .append('g')
+      .attr('id', 'overallGroup')  // Create an overall group
+      .attr('transform','translate(50,300)')
+      .selectAll('g')
+      .data(data)
+      .enter()
+      .append('g')  // create a group for each team
+      .attr('class', 'teamGroup')
+      .attr('transform', (d,i) => 'translate('+ (i*50) +',0)')
+      ;
+      
+    d3.selectAll('g.teamGroup')
+      .append('circle')
+      .attr('r', 20)
+    ;
+      
+    d3.selectAll('g.teamGroup')
+      .append('text')
+      .attr('y', 30) // This y value now relative to the <g> group
+      .text(d => d.team)
+    ;
+});
+</script>
+</html>
