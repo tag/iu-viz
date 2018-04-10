@@ -46,11 +46,13 @@
 d3.csv('worldcup.csv', function(d) {  // Call this anonymous function for each element
     d.win = parseInt(d.win);          // Use the function to convert items from string (the default) to their correct type
     d.loss = parseInt(d.loss);
-    d.draw = parseInt(d.draw);
+    d['draw'] = parseInt(d['draw']);  // d['draw'] means exactly the same thing as d.draw ... to reference the item named `draw` inside `d`. 
+                                      // This notation is useful when the sub-item has spaces in it, for example
+    d['win %'] = d.win / (d['draw'] + d.win + d.lose) * 100;  // We can use this function to calculate new elements not present in the CSV file
     return d;
 })
 .then(function(data) {
-    console.log(data);  // Check the console to make sure it's printing!
+    console.log(data);  // I like to use the Console for debugging.
       
     d3.select('svg')
       .append('g')
