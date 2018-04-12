@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+    <title>Simple Treemap</title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+
+<style>
+    rect {
+        stroke: white;
+        fill: #05668D;
+        opacity: 0.3;
+        stroke-width: 1px;
+    }
+</style>
+
+<svg>
+    <g></g>
+</svg>
+
+<!-- Modified from https://bl.ocks.org/denjn5/bb835c4fb8923ee65a13008832d2efed -->
+<script>
+    var mySvg = {
+        width: 400,
+        height: 300
+    }
+    
+    var g = d3.select('svg')
+    .attr('width', mySvg.width)
+    .attr('height', mySvg.height)
+    .select('g'); // Notice that there is an empty on in the HTML above
+    
+    // Get the data from our CSV file
+    d3.csv('in-income.csv')
+    .then( function(data) {
+        var treeData = d3.stratify()
+        .parentId(d => d['Parent'])
+        .id(d => d['County'])
+        (data);
+
+        drawViz(treeData);
+    });
+
+    function drawViz(data) {
+        console.log(data);
+        // Declare d3 layout
+        var vLayout = d3.treemap().size([mySvg.width, mySvg.height]).paddingOuter(5);
+
+        // Layout + Data
+        var vRoot = d3.hierarchy(data).sum(d => d.data['Population']);
+        var vNodes = vRoot.descendants();
+        vLayout(vRoot);
+        var vSlices = g.selectAll('rect').data(vNodes).enter().append('rect');
+
+        // Draw on screen
+        vSlices.attr('x', function (d) { return d.x0; })
+            .attr('y', function (d) { return d.y0; })
+            .attr('width', function (d) { return d.x1 - d.x0; })
+            .attr('height', function (d) { return d.y1 - d.y0; });
+    }
+</script>
