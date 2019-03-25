@@ -2,7 +2,7 @@
 
 * Review the included presentation (Color.pptx)
 
-* [Color matters](https://usabilitygeek.com/colour-user-experience-*ology/), and evokes emotions
+* [Color matters](https://usabilitygeek.com/colour-user-experience-psychology/), and evokes emotions
 
 ## Describing colors
 [The "Colorizer" tutorial and tool](http://colorizer.org) may be helpful.
