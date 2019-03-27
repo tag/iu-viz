@@ -66,7 +66,7 @@ There are several shapes that can be used. The Mozilla Developer Network (MDN) h
 * [`<line>`][line]
 * [`<path>`][path]
 
-`<line>` and `<path>` are, of course, not shapes (as such), but behave similarly.
+`<line>` and `<path>` are, of course, not shapes (as such), but behave similarly. The method for describing a `<path>` is a little more complicated, but the [MDN tutorial][path_tutorial] walks through it well.
 
 [circle]:https://developer.mozilla.org/en-US/docs/Web/SVG/Element/circle
 [ellipse]:https://developer.mozilla.org/en-US/docs/Web/SVG/Element/ellipse
@@ -74,6 +74,7 @@ There are several shapes that can be used. The Mozilla Developer Network (MDN) h
 [polygon]:https://developer.mozilla.org/en-US/docs/Web/SVG/Element/polygon
 [line]:https://developer.mozilla.org/en-US/docs/Web/SVG/Element/line
 [path]:https://developer.mozilla.org/en-US/docs/Web/SVG/Element/path
+[path_tutorial]:https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
 
 [MDN documentation]:https://developer.mozilla.org/en-US/docs/Web/SVG
 [MDN tutorial]:https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial
