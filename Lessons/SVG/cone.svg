@@ -25,11 +25,11 @@
   <!-- Because the above group has an `id`
   We can reuse the group with a small offset
   to turn the image into four scoops. -->
-  <use href="#scoops" y="-100"/>
+  <use href="#scoops" xlink:href="#scoops" y="-100"/>
 
   <!-- Although the above `<use>` tag works in most
   browsers, it doesn't work in modern Safari (even in 2019)
-  so use the old, deprecated version of `href` too. -->
- <use href="#scoops" xmlns:href="#scoops" y="-100"/>
+  so use the old, deprecated version of `href` (`xlink:href`) too.
+  In all other modern browsers, simply `href` is sufficient. -->
 
 </svg>
