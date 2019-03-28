@@ -1,4 +1,6 @@
-<svg height="400" width="260" xmlns="http://www.w3.org/2000/svg">
+<svg height="400" width="260" 
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink">
 
   <line x1="40" y1="360" x2="160" y2="360"
     stroke="black" stroke-width="3"/>
@@ -25,12 +27,16 @@
   <!-- Because the above group has an `id`
   We can reuse the group with a small offset
   to turn the image into four scoops. -->
-  <use xlink:href="#scoops" y="-100"/>
+  <use href="#scoops" xlink:href="#scoops" y="-100"/>
 
   <!-- Although the above `<use>` tag works in most
   browsers, it doesn't work in modern Safari (even in 2019)
   so use the old, deprecated version of `href` (`xlink:href`) 
   instead if you require cross-browser compatibility.
+
+  If you do this, you'll also need to addd the `xlink` namespace
+  in the `<svg> element, as done at the top of this file.
+
   In all other modern browsers, simply `href` is sufficient. -->
 
 </svg>
