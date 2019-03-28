@@ -1,0 +1,180 @@
+<svg height="200" width="500"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  >
+  <!--  This file is a partial re-creation of a visualization from
+        http://www.vizwiz.com/2017/03/secret-of-success.html
+
+        BEWARE: The original data source isn't entirely clear, and mnay be
+        unreliable. Do not draw conclusions from this data, it is used only as
+        a visualization exercise. As best I can tell, this was a public survey
+        conducted in Russia by a firm with apparant ties to the government. This
+        data may, at best, be purely propoganda. Again, consider this data to
+        be unreliable.
+        See, e.g., https://www.reddit.com/r/dataisbeautiful/comments/61vf1e/the_secret_of_success_from_the_perspective_of_the/dfi1u3y?utm_source=share&utm_medium=web2x
+          https://translate.google.com/translate?sl=auto&tl=en&u=https%3A%2F%2Fru.wikipedia.org%2Fwiki%2FФонд_«Общественное_мнение»
+  -->
+
+  <!-- The namespace attributes in the `<svg>` tag are necessesary to get the
+       `<use>` tag to work properly in Safari. It's the only modern browser
+       (2019) with this issue.
+  -->
+  <!-- Although the `<use>` tag (specifically, `href` attribute) works in most
+       browsers, it doesn't work in modern Safari (even in 2019)
+       so use the old, deprecated version of `href` (`xlink:href`)
+       instead if you require cross-browser compatibility.
+
+       If you do this, you'll also need to addd the `xlink` namespace
+       in the `<svg> element, as done at the top of this file.
+
+       In all other modern browsers, simply `href` is sufficient.
+       However, for this file, I use `xlink:href` instead of `href`, in order
+       to support Safari.
+  -->
+<style>
+/* Style by id, with a leading `#` */
+#halfRow {
+
+}
+
+/* Style by tag name */
+circle {
+
+}
+
+/* Style by class, with a leading dot */
+.poor {
+  fill: rgb(232, 38, 112);
+}
+
+.middle {
+  fill: rgb(66,131,203);
+}
+
+.rich {
+  fill: rgb(239, 118, 20);
+}
+
+.empty {
+  fill: white;
+  stroke: gray;
+  stroke-width:1;
+}
+
+.cell-value {
+  font-weight:bold;
+  font-size:36px;
+}
+
+.cell-description {
+  fill: #333333;  /* Dark gray instead of black is actually slightly easier to read */
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.cell-category {
+  font-size:14px;
+  font-weight:bold;
+  text-anchor: end; /* The x coordinate is at the horizonal right of the text; one of start|middle|end */
+  dominant-baseline: central; /* The y coordinate is at the vertical center of the text */
+}
+</style>
+
+<!-- Elements within `<defs>` are not visible by default.
+     The purpose of this tag is to store shapes
+     (or groups of shapes) for later reuse.
+-->
+<defs>
+  <g id="fullRow">
+    <g id="halfRow">
+      <g id="doubleCircle">
+        <circle id="simpleCircle"
+          cx="10" cy="10" r="5" />
+        <use xlink:href="#simpleCircle" x="14" />
+      </g>
+      <use xlink:href="#simpleCircle" x="28" />
+      <use xlink:href="#simpleCircle" x="42" />
+      <use xlink:href="#simpleCircle" x="56" />
+    </g>
+    <use xlink:href="#halfRow" x="70" />
+  </g>
+
+  <!-- A 10x10 grid of empty circles -->
+  <g id="emptyTemplate" class="empty">
+    <use xlink:href="#fullRow" y="0" />
+    <use xlink:href="#fullRow" y="14" />
+    <use xlink:href="#fullRow" y="28" />
+    <use xlink:href="#fullRow" y="42" />
+    <use xlink:href="#fullRow" y="56" />
+    <use xlink:href="#fullRow" y="70" />
+    <use xlink:href="#fullRow" y="84" />
+    <use xlink:href="#fullRow" y="98" />
+    <use xlink:href="#fullRow" y="112" />
+    <use xlink:href="#fullRow" y="126" />
+  </g>
+</defs>
+
+<!-- The transforms (translate, rotate) are, of course
+     optional, and are applied in order. There are many
+     other types of transforms available.
+
+   To make multiple cells, I would draw all in the same
+   place, then use transforms to shift them.
+
+   In this example, I've also shifted the cells down 20px
+   to make room for the label text across the top.
+ -->
+  <g class="cell"  transform="translate(10 20)">
+   <use xlink:href="#emptyTemplate" />
+   <g class="rich">
+     <use xlink:href="#halfRow" y="126" />
+     <use xlink:href="#doubleCircle" x="70" y="126" />
+     <use xlink:href="#doubleCircle" x="98" y="126" />
+   </g>
+   <text class="cell-value rich" x="5" y="170">
+     9%
+   </text>
+   <!-- This label relies on CSS to position the text
+        relative to the center point of the rotation -->
+   <text class="cell-category rich" x="-4" y="8" transform="rotate(270,-4,8)">
+     Rich
+   </text>
+  </g>
+  <g class="cell"  transform="translate(170 20)">
+    <use xlink:href="#emptyTemplate" />
+    <g class="middle">
+      <use xlink:href="#fullRow" y="126" />
+      <use xlink:href="#fullRow" y="112" />
+      <use xlink:href="#fullRow" y="98" />
+      <use xlink:href="#doubleCircle" y="84" />
+    </g>
+    <text class="cell-value middle" x="5" y="170">
+      32%
+    </text>
+    <text class="cell-category middle" x="-4" y="8" transform="rotate(270,-4,8)">
+      Middle
+    </text>
+  </g>
+
+  <g class="cell" transform="translate(330 20)">
+    <use xlink:href="#emptyTemplate" />
+    <g class="poor">
+      <use xlink:href="#fullRow" y="126" />
+      <use xlink:href="#fullRow" y="112" />
+      <use xlink:href="#fullRow" y="98" />
+      <use xlink:href="#halfRow" y="84" />
+      <use xlink:href="#doubleCircle" x="70" y="84" />
+      <use xlink:href="#doubleCircle" x="98" y="84" />
+    </g>
+    <text class="cell-value poor" x="5" y="170">
+      39%
+    </text>
+    <text class="cell-category poor" x="-4" y="8" transform="rotate(270,-4,8)">
+      Poor
+    </text>
+  </g>
+
+  <text class="cell-description" x="4" y="18">
+    Connections to the right people are important for success
+  </text>
+</svg>
