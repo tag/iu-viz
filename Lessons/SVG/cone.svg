@@ -27,4 +27,9 @@
   to turn the image into four scoops. -->
   <use href="#scoops" y="-100"/>
 
+  <!-- Although the above `<use>` tag works in most
+  browsers, it doesn't work in modern Safari (even in 2019)
+  so use the old, deprecated version of `href` too. -->
+ <use href="#scoops" xmlns:href="#scoops" y="-100"/>
+
 </svg>
