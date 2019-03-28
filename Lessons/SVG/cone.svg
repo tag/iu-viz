@@ -1,16 +1,30 @@
-<svg height="400" width="260">
-  <polygon points="
+<svg height="400" width="260" xmlns="http://www.w3.org/2000/svg">
+
+  <line x1="40" y1="360" x2="160" y2="360"
+    stroke="black" stroke-width="3"/>
+
+  <!-- The cone -->
+  <polygon id="cone" points="
       100 380
       70 260
       130 260
     " fill="rgb(206,185,92)"
     stroke="rgb(189,170,87)"/>
-  <line x1="" y1=""/>
-  <circle cx="100" cy="240" r="40"
-    fill="rgb(74,45,4)"/>
-  <circle cx="100" cy="190" r="40"
-    fill="rgba(99,61,5,.8)"/>
-  <text x="145" y="240">Dark
-    Chocolate</text>
-  <text x="145" y="190">Chocolate</text>
+
+  <!-- Two scoops, grouped with `<g>` -->
+  <g id="scoops">
+    <circle cx="100" cy="240" r="40"
+      fill="rgb(74,45,4)"/>
+    <circle cx="100" cy="190" r="40"
+      fill="rgb(146,189,101)"/>
+    <text x="145" y="240">Dark
+      Chocolate</text>
+    <text x="145" y="190">Mint Chocolate</text>
+  </g>
+
+  <!-- Because the above group has an `id`
+  We can reuse the group with a small offset
+  to turn the image into four scoops. -->
+  <use href="#scoops" y="-100"/>
+
 </svg>
