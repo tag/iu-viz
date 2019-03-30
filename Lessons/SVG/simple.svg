@@ -1,11 +1,13 @@
 <svg width="300" height="200">
-  <g>
+  <g id="circles">
     <circle cx="50" cy="100" r="50" fill="red" />
     <circle cx="150" cy="100" r="50" fill="green" />
     <circle cx="250" cy="100" r="50" fill="blue" />
   </g>
 
   <rect x="0" y="150" width="300" height="50" fill="gray"/>
-  <text x="65" y="185" font-size="30" text-anchor="top"fill="white">
+  <text x="65" y="185" font-size="30" text-anchor="top" fill="white">
     Primary colors</text>
+
+  <use href="#circles" x="" y="150"/>
 </svg>
